@@ -5,20 +5,24 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import root.BatchApplication;
+import root.batch.JobConfiguration;
 
 @SpringBatchTest
 @SpringBootTest(classes = BatchApplication.class)
+@ContextConfiguration(classes = { JobConfiguration.class })
 public class JobTest {
 
     @Autowired
     private JobLauncher jobLauncher;
 
     @Autowired
-    Job job;
+    Job testJob;
 
     @Test
     void testJob() throws Exception {
-        jobLauncher.run(job, new JobParameters());
+        System.out.println("------------- Начало теста -------------------");
+        jobLauncher.run(testJob, new JobParameters());
     }
 }
