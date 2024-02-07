@@ -6,7 +6,7 @@ import org.springframework.classify.Classifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyClassifier implements Classifier<String, ItemProcessor<String, String>> {
+public class MyClassifier implements Classifier<Object, ItemProcessor<?, ?>> {
 
     @Autowired
     private MyEvenItemProcessor evenItemProcessor;
@@ -15,11 +15,12 @@ public class MyClassifier implements Classifier<String, ItemProcessor<String, St
     private MyOddItemProcessor oddItemProcessor;
 
     @Override
-    public ItemProcessor<String, String> classify(String incomingString) {
+    public ItemProcessor<?, ? extends Object> classify(Object incomingString) {
         return isOdd(incomingString) ? oddItemProcessor : evenItemProcessor;
     }
 
-    private boolean isOdd(String incomingString) {
-        return Integer.parseInt(incomingString.split("_")[1]) % 2 != 0;
+    private boolean isOdd(Object incomingString) {
+        return Integer.parseInt(((String)incomingString).split("_")[1]) % 2 != 0;
     }
+
 }

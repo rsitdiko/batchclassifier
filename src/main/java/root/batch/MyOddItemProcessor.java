@@ -4,10 +4,11 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MyOddItemProcessor implements ItemProcessor<String, String> {
+public class MyOddItemProcessor implements ItemProcessor<Object, Object> {
 
     @Override
-    public String process(String item) throws Exception {
+    public Object process(Object item) throws Exception {
+        System.out.println("--- MyOddItemProcessor");
         System.out.println("    Считанная строка нечетная = " + item);
         return item;
     }

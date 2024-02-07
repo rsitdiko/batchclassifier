@@ -4,13 +4,11 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.support.ClassifierCompositeItemProcessor;
 import org.springframework.batch.item.support.builder.ClassifierCompositeItemProcessorBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.classify.Classifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,13 +23,7 @@ public class JobConfiguration {
     private StepBuilderFactory stepBuilderFactory;
 
     @Autowired
-    private MyOddItemProcessor oddItemProcessor;
-
-    @Autowired
-    private MyEvenItemProcessor evenItemProcessor;
-
-    @Autowired
-    private MyClassifier myClassifier;
+    private MyClassifier itemProcessorClassifier;
 
     @Bean
     public Job testJob() throws Exception {
@@ -69,26 +61,8 @@ public class JobConfiguration {
     @Bean
     public ClassifierCompositeItemProcessor<Object, Object> classifierItemProcessor() throws Exception {
         return new ClassifierCompositeItemProcessorBuilder<>()
-                .classifier(classifier())
+                .classifier(itemProcessorClassifier)
                 .build();
     }
-
-    private Classifier<? super Object, ItemProcessor<?, ?>> classifier() {
-        return new Classifier<Object, ItemProcessor<?, ?>>() {
-            @Override
-            public ItemProcessor<?, ? extends Object> classify(Object classifiable) {
-
-                boolean isOdd = Integer.parseInt(((String) classifiable).split("_")[1]) % 2 != 0;
-
-                if (isOdd){
-                    return oddItemProcessor;
-                }  else {
-                    return evenItemProcessor;
-                }
-            }
-        };
-    }
-
-
 
 }
