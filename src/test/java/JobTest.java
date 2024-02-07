@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import root.BatchApplication;
-import root.batch.JobConfiguration;
+import root.batch.job001.JobConfiguration;
 
 @SpringBatchTest
 @SpringBootTest(classes = BatchApplication.class)

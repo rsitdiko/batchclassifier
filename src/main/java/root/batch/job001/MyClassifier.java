@@ -1,4 +1,4 @@
-package root.batch;
+package root.batch.job001;
 
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;

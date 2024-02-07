@@ -1,4 +1,4 @@
-package root.batch;
+package root.batch.job001;
 
 import org.springframework.batch.item.ItemWriter;
 

@@ -1,4 +1,4 @@
-package root.batch;
+package root.batch.job001;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -46,11 +46,6 @@ public class JobConfiguration {
     @Bean
     public ItemReader reader() {
         return new MyItemReader();
-    }
-
-    @Bean
-    public MyItemProcessor processor() {
-        return new MyItemProcessor();
     }
 
     @Bean
